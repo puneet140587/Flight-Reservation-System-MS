@@ -17,26 +17,28 @@ import com.puneet.reservation.repos.FlightRepository;
 
 @Controller
 public class FlightController {
-	
+
 	@Autowired
 	FlightRepository flightRepository;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FlightController.class);
-	
-	@RequestMapping( value = "findFlights")
+
+	@RequestMapping(value = "findFlights")
 	public String findFlights(@RequestParam("from") String from, @RequestParam("to") String to,
-			@RequestParam("departureDate") @DateTimeFormat(pattern = "MM-dd-yyyy")Date departureDate,
+			@RequestParam("departureDate") @DateTimeFormat(pattern = "MM-dd-yyyy") Date departureDate,
 			ModelMap modelMap) {
-		
-		LOGGER.info("Inside findflights() From:"+from +"TO:"+to+"DEPARTURE_DATE:"+departureDate);
-		
+
+		LOGGER.info("Inside findflights() From:" + from + "TO:" + to + "DEPARTURE_DATE:" + departureDate);
+
 		List<Flight> flights = flightRepository.findFlights(from, to, departureDate);
 		modelMap.addAttribute("flights", flights);
-		
 		LOGGER.info("Flights found are:" + flights);
-		
 		return "/displayFlights";
-		
-	} 
+	}
+
+	@RequestMapping("admin/showAddFlight")
+	public String showAddFlight() {
+		return "addFlight";
+	}
 
 }

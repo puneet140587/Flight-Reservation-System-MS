@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.puneet.reservation.dto.ReservationRequest;
 import com.puneet.reservation.entities.Flight;
@@ -43,6 +43,7 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	
 	@Override
+	@Transactional
 	public Reservation bookFlight(ReservationRequest request) {
 		
 		LOGGER.info("Inside bookFlight()");
